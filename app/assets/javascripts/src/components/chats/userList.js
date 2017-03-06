@@ -1,7 +1,10 @@
 import React from 'react'
+// import _ from 'lodash'
 import classNames from 'classnames'
 import Utils from '../../utils'
+import ChatsStore from '../../stores/chats'
 import UserStore from '../../stores/user'
+import ChatsAction from '../../actions/chats'
 
 class UserList extends React.Component {
 
@@ -11,63 +14,37 @@ class UserList extends React.Component {
   }
 
   get initialState() {
+    return this.getStateFromStore()
+  }
+
+  getStateFromStore() {
+    // const allChats = ChatsStore.getAllChats()
+
+    const messageList = []
+    // _.each(allChats, (message) => {
+      // const chatsLength = message.chats.length()
+    //   messageList.push({
+    //     lastMessage: message.chats[chatsLength - 1],
+    //     lastAccess: message.lastAccess,
+    //     user: message.user,
+    //   })
+    // })
     return {
-      openChatID: 2,
-      messageList: [
-        {
-          lastMessage: {
-            contents: 'Hey, what\'s up?',
-            from: 1,
-            timestamp: 1424469794000,
-          },
-          lastAccess: {
-            recipient: 1424469794050,
-            currentUser: 1424469794080,
-          },
-          user: {
-            profilePicture: 'https://avatars0.githubusercontent.com/u/7922109?v=3&s=460',
-            id: 2,
-            name: 'Ryan Clark',
-            status: 'online',
-          },
-        },
-        {
-          lastMessage: {
-            contents: 'Want a game of ping pong?',
-            from: 3,
-            timestamp: 1424352522000,
-          },
-          lastAccess: {
-            recipient: 1424352522000,
-            currentUser: 1424352522080,
-          },
-          user: {
-            read: true,
-            profilePicture: 'https://avatars3.githubusercontent.com/u/2955483?v=3&s=460',
-            name: 'Jilles Soeters',
-            id: 3,
-            status: 'online',
-          },
-        },
-        {
-          lastMessage: {
-            contents: 'Please follow me on twitter I\'ll pay you',
-            timestamp: 1424423579000,
-            from: 4,
-          },
-          lastAccess: {
-            recipient: 1424423579000,
-            currentUser: 1424423574000,
-          },
-          user: {
-            name: 'Todd Motto',
-            id: 4,
-            profilePicture: 'https://avatars1.githubusercontent.com/u/1655968?v=3&s=460',
-            status: 'online',
-          },
-        },
-      ],
+      openChatID: ChatsStore.getOpenChatUserID(),
+      messageList: messageList,
     }
+  }
+  componentWillMount() {
+    ChatsStore.onChange(this.onStoreChange.bind(this))
+  }
+  componentWillUnmount() {
+    ChatsStore.offChange(this.onStoreChange.bind(this))
+  }
+  onStoreChange() {
+    this.setState(this.getStateFromStore())
+  }
+  changeOpenChat(id) {
+    ChatsAction.changeOpenChat(id)
   }
   render() {
     this.state.messageList.sort((a, b) => {
@@ -80,9 +57,9 @@ class UserList extends React.Component {
       return 0
     })
 
-    const messages = this.state.messageList.map((message, index) => {
+    const chats = this.state.messageList.map((message, index) => {
       const date = Utils.getNiceDate(message.lastMessage.timestamp)
-
+//
       var statusIcon
       if (message.lastMessage.from !== message.user.id) {
         statusIcon = (
@@ -109,6 +86,7 @@ class UserList extends React.Component {
 
       return (
         <li
+          onClick={ this.changeOpenChat.bind(this, message.user.id) }
           className={ itemClasses }
           key={ message.user.id }
         >
@@ -132,7 +110,7 @@ class UserList extends React.Component {
     return (
       <div className='user-list'>
         <ul className='user-list__list'>
-          { messages }
+          { chats }
         </ul>
       </div>
     )
