@@ -15,6 +15,10 @@ gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
+gem 'devise', '3.5.1'
+gem 'omniauth'
+gem 'bootstrap-sass',       '3.2.0.0'
+
 
 
 group :development, :test do
@@ -29,4 +33,3 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
 end
-

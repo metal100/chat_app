@@ -3,9 +3,23 @@
   %head
     %title flux_tutorial
     = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true
-    %link{ href: '//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css', rel: 'stylesheet' }/
+    %link{ href: '//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css', rel: 'stylesheet' }
     = javascript_include_tag 'application'
     = javascript_include_tag '/assets/javascripts/boot.js'
     = csrf_meta_tags
   %body
-    = yield
+    .header
+      .header-logo
+        = link_to 'CHAT APP', root_path, data: {no_turbolink: true}
+      .header-list
+        %ul
+          %li ユーザー検索
+          %li
+            = link_to 'ユーザー情報', current_user
+
+          %li=link_to 'ログアウト', destroy_user_session_path, method: :delete
+          - flash.each do |key, value|
+            .alert{ class: "alert-#{key}" }
+              .container
+                = value
+      = yield

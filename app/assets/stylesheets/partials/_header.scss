@@ -1,9 +1,15 @@
-.header {
-  height: 60px;
-  background: #2AADE5;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 998;
+
+.header-logo {
+  float: left;
+  font-size: 25px;
+  padding: 20px 40px;
+  margin-right:650px;
+}
+
+
+
+.header-list li {
+  float:left;
+  font-size:20px;
+  padding: 20px 40px;
 }
