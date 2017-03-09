@@ -8,6 +8,7 @@ const Root = window.location.origin || `${window.location.protocol}//${window.lo
 const APIRoot = `${Root}/api`
 export const APIEndpoints = {
   Chats: APIRoot + '/chats',
+  USERS: APIRoot + '/users',
 }
 
 export const ActionTypes = keyMirror({

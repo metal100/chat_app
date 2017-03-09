@@ -1,12 +1,12 @@
 import React from 'react'
-// import _ from 'lodash'
+import _ from 'lodash'
 import classNames from 'classnames'
 import Utils from '../../utils'
 import ChatsStore from '../../stores/chats'
 import UserStore from '../../stores/user'
 import ChatsAction from '../../actions/chats'
 
-class UserList extends React.Component {
+export default class UserList extends React.Component {
 
   constructor(props) {
     super(props)
@@ -18,17 +18,17 @@ class UserList extends React.Component {
   }
 
   getStateFromStore() {
-    // const allChats = ChatsStore.getAllChats()
+    const allChats = ChatsStore.getAllChats()
 
     const messageList = []
-    // _.each(allChats, (message) => {
-      // const chatsLength = message.chats.length()
-    //   messageList.push({
-    //     lastMessage: message.chats[chatsLength - 1],
-    //     lastAccess: message.lastAccess,
-    //     user: message.user,
-    //   })
-    // })
+    _.each(allChats, (message) => {
+      const chatsLength = message.chats.length()
+      messageList.push({
+        lastMessage: message.chats[chatsLength - 1],
+        lastAccess: message.lastAccess,
+        user: message.user,
+      })
+    })
     return {
       openChatID: ChatsStore.getOpenChatUserID(),
       messageList: messageList,
@@ -59,7 +59,7 @@ class UserList extends React.Component {
 
     const chats = this.state.messageList.map((message, index) => {
       const date = Utils.getNiceDate(message.lastMessage.timestamp)
-//
+
       var statusIcon
       if (message.lastMessage.from !== message.user.id) {
         statusIcon = (
@@ -116,5 +116,3 @@ class UserList extends React.Component {
     )
   }
 }
-
-export default UserList
