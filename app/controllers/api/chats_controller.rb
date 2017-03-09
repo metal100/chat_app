@@ -1,10 +1,7 @@
 module Api
   class  ChatsController < ApplicationController
 
-    def index
-      @products = Chat.all
-      render json: @products
-    end
+  １
 
     def create
      @contents = Chat.new

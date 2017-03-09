@@ -1,18 +1,17 @@
 import request from 'superagent'
 import Dispatcher from '../dispatcher'
-import {ActionTypes, APIEndpoints, CSRFToken} from '../constants/app'
+import {ActionTypes, APIEndpoints} from '../constants/app'
 
 export default {
-
-  getChats() {
+  loadUsers() {
     return new Promise((resolve, reject) => {
       request
-      .get('/api/chats')
+      .get(`${APIEndpoints.USERS}`)
       .end((error, res) => {
         if (!error && res.status === 200) {
           const json = JSON.parse(res.text)
           Dispatcher.handleServerAction({
-            type: ActionTypes.GET_CHATS,
+            type: ActionTypes.LOAD_USERS,
             json: json,
           })
           resolve(json)
@@ -23,20 +22,19 @@ export default {
     })
   },
 
-  postChats(chatsId) {
+  loadSearchUsers(search_string) {
     return new Promise((resolve, reject) => {
       request
-      .post(`${APIEndpoints.CHATS}`)
-      .set('X-CSRF-Token', CSRFToken())
-      .send({chats_id: chatsId})
+      .get(`${APIEndpoints.USERS}/search`)
+      .query({search_string})
       .end((error, res) => {
         if (!error && res.status === 200) {
           const json = JSON.parse(res.text)
           Dispatcher.handleServerAction({
-            type: ActionTypes.POST_CHATS,
-            chatsId,
+            type: ActionTypes.LOAD_SEARCH_USERS,
             json: json,
           })
+          resolve(json)
         } else {
           reject(res)
         }
