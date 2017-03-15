@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   end
   resources :chats
   root to: 'chats#index'
+  resources :friendships, only: [:create]
 
   namespace :api, { format: 'json' } do
     resources :chats
