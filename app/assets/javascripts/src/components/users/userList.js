@@ -1,6 +1,7 @@
-import React from 'react'
 import _ from 'lodash'
+import React from 'react'
 import UserStore from '../../stores/user'
+import Utils from '../../lib/utils'
 
 export default class UserList extends React.Component {
 
@@ -31,6 +32,10 @@ export default class UserList extends React.Component {
     this.setState(this.getStateFromStore())
   }
 
+  onSubmitHandler(to_user_id) {
+    Utils.post('/friendships', {to_user_id})
+  }
+
   render() {
     const searchUsers = this.state.users
 
@@ -39,7 +44,7 @@ export default class UserList extends React.Component {
           {
             _.map(searchUsers, (user) => {
               return (
-                <li key={user.id}>
+                <li key={user.id} onClick={this.onSubmitHandler.bind(this, user.id)}>
                   {user.name}
                 </li>
               )

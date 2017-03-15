@@ -1,7 +1,6 @@
 module Api
   class  ChatsController < ApplicationController
-
-  １
+    before_action :authenticate_user!, only: [:create]
 
     def create
      @contents = Chat.new

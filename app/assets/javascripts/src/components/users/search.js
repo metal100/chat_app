@@ -31,8 +31,7 @@ export default class Search extends React.Component {
             className='search_form'
             value={searchString}
             onChange={this.handleChange.bind(this)}
-            placeholder='ユーザー名で検索しよう'
-          />
+            placeholder='ユーザー名で検索しよう'/>
         <UserList />
         </div>
     )

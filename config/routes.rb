@@ -1,12 +1,10 @@
 Rails.application.routes.draw do
 
-  get 'pages/index'
-
-  get'/notes/:id'=> 'notes#show',as:'note'
+  get '/users/search' => 'users#search'
   devise_for :users, controllers: {confirmations: 'confirmations', omniauth_callbacks: 'users/omniauth_callbacks' }
   resources :users, :only => [:show] do
     collection do
-      get :search
+       get '/search', to: 'users#search'
     end
   end
   resources :chats
