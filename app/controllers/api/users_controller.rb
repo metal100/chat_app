@@ -1,5 +1,7 @@
 module Api
   class  UsersController < ApplicationController
+    before_action :authenticate_user!, only: [:search]
+
     def search
       @users = User.where.not(id: current_user.id)
       @search_string = params[:search_string]

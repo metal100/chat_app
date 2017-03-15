@@ -8,18 +8,20 @@
     = javascript_include_tag '/assets/javascripts/boot.js'
     = csrf_meta_tags
   %body
-    .header
-      .header-logo
-        = link_to 'CHAT APP', root_path, data: {no_turbolink: true}
-      .header-list
-        %ul
-          %li ユーザー検索
-          %li
-            = link_to 'ユーザー情報', current_user
-
-          %li=link_to 'ログアウト', destroy_user_session_path, method: :delete
-          - flash.each do |key, value|
-            .alert{ class: "alert-#{key}" }
-              .container
-                = value
+    - if user_signed_in?
+      .header
+        .header-logo
+          = link_to 'CHAT APP', root_path, data: {no_turbolink: true}
+        .header-list
+          %ul
+            %li
+              = link_to 'ユーザー検索', search_users_path, data: {no_turbolink: true}
+            %li
+              = link_to 'ユーザー情報', current_user
+            %li
+              =link_to 'ログアウト', destroy_user_session_path, method: :delete
+            - flash.each do |key, value|
+              .alert{ class: "alert-#{key}" }
+                .container
+                  = value
     = yield
