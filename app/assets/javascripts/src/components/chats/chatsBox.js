@@ -10,6 +10,7 @@ class ChatsBox extends React.Component {
   constructor(props) {
     super(props)
     this.state = this.initialState
+    this.state = {chats: ChatsStore.getAllChats()}
     this.onChangeHandler = this.onStoreChange.bind(this)
   }
   get initialState() {
@@ -37,7 +38,6 @@ class ChatsBox extends React.Component {
   render() {
     // const chatsLength = this.state.chats.length
     // const currentUserID = UserStore.user.id
-    console.log(this.state.chats)
     const chats = this.state.chats.map((chat, index) => {
       const messageClasses = classNames({
         'message-box__item': true,

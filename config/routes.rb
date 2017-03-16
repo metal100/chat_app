@@ -9,11 +9,10 @@ Rails.application.routes.draw do
   end
   resources :chats
   root to: 'chats#index'
-  resources :friendships, only: [:create]
-
+  resources :friendships, only: [:create, :destroy]
   namespace :api, { format: 'json' } do
     resources :chats
-    resources :users, :only => [] do
+    resources :users, :only => [:index] do
       collection do
         get :search
       end
