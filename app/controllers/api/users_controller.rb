@@ -12,5 +12,10 @@ module Api
       end
       render json: @search_users
     end
+
+    def index
+      @users = current_user.friends_all
+      render json: @users
+    end
   end
 end

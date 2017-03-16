@@ -71,5 +71,15 @@
   "engines": {
     "node": "0.10.x",
     "npm": "2.1.x"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Progate/flux_tutorial.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Progate/flux_tutorial/issues"
+  },
+  "homepage": "https://github.com/Progate/flux_tutorial#readme"
 }
